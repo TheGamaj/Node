@@ -1,0 +1,39 @@
+name: E2E Binary Install
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - Asli
+      - main
+      - dev
+    tags:
+      - "is.*"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  binary-install:
+    name: Install on a fresh runner and check the control port
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: "go.mod"
+
+      - name: Run node binary install end-to-end test
+        env:
+          GAMAJ_E2E_PREFIX: /tmp/gamaj-node-e2e
+        run: sudo env "PATH=$PATH" bash scripts/tests/e2e-node-install.sh

@@ -1,0 +1,36 @@
+# Gamaj Node — ignored files
+
+# Environment / secrets
+.env
+.gh-token
+*.key
+
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Xray core and runtime data fetched at runtime (anchored so vendor/ is safe)
+/v2ray-core
+/xray-core
+/bin/
+/data/
+
+# Node / tooling
+node_modules/
+
+# Logs, caches and temp files
+*.log
+.DS_Store
+.tmp*
+tmp/
+artifacts/
+dist/
+
+# Database files
+*.sqlite3
+*.db

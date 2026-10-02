@@ -1,0 +1,12 @@
+[Unit]
+Description=Gamaj Node Service
+Documentation=https://github.com/TheGamaj/Node
+After=network.target nss-lookup.target
+
+[Service]
+ExecStart=/usr/local/bin/gamaj-node
+Restart=on-failure
+WorkingDirectory=/var/lib/gamaj-node
+
+[Install]
+WantedBy=multi-user.target
