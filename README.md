@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/brand/gamaj-node-logo.svg" alt="Gamaj Node" width="104" height="104">
+  <img src="./assets/brand/gamaj-mark.svg" alt="Gamaj" width="104" height="104">
 </p>
 
 <h1>GAMAJ</h1>
