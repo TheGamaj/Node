@@ -33,6 +33,9 @@ jobs:
         with:
           go-version-file: "go.mod"
 
+      - name: Check Xray core auto-install
+        run: sudo env "PATH=$PATH" bash scripts/tests/test-xray-core-install.sh
+
       - name: Run node binary install end-to-end test
         env:
           GAMAJ_E2E_PREFIX: /tmp/gamaj-node-e2e
