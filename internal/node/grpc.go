@@ -1235,7 +1235,7 @@ func (s *Server) grpcMetrics(message string) *nodev1.MetricsResponse {
 func (s *Server) updateChannel() string {
 	if metadata := s.binaryMetadata(); metadata != nil {
 		if tag, ok := metadata["tag"].(string); ok && strings.TrimSpace(tag) != "" {
-			return updateChannelForTag(tag)
+			return "latest"
 		}
 	}
 	return s.settings.InstallMode

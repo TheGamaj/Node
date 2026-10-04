@@ -5,6 +5,10 @@
   <a href="./README-zh-cn.md">简体中文</a>
 </p>
 
+<p align="center">
+  <img src="../assets/brand/gamaj-node-logo.svg" alt="Gamaj Node" width="104" height="104">
+</p>
+
 <h1>GAMAJ</h1>
 
 ### Node
@@ -23,10 +27,10 @@ curl -fsSL https://raw.githubusercontent.com/TheGamaj/Node/Asli/scripts/gamaj/ga
 curl -fsSL https://raw.githubusercontent.com/TheGamaj/Node/Asli/scripts/gamaj/gamaj-node.sh | sudo bash -s -- install --name gamaj-node2
 ```
 
-Канал dev:
+Конкретный релиз:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/TheGamaj/Node/Asli/scripts/gamaj/gamaj-node.sh | sudo bash -s -- install --dev
+curl -fsSL https://raw.githubusercontent.com/TheGamaj/Node/Asli/scripts/gamaj/gamaj-node.sh | sudo bash -s -- install --version is.0.0.1
 ```
 
 Только командный скрипт `gamaj-node`:

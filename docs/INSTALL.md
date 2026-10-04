@@ -37,8 +37,7 @@ Options:
 # second node on the same host (separate service, ports, and data dir)
 ... | sudo bash -s -- install --name gamaj-node2
 
-# dev channel or a pinned release
-... | sudo bash -s -- install --dev
+# a pinned release
 ... | sudo bash -s -- install --version is.0.0.1
 ```
 
@@ -124,7 +123,7 @@ sudo gamaj-node restart        # restart
 sudo gamaj-node status         # status
 sudo gamaj-node logs           # follow logs
 sudo gamaj-node core-update    # update or change the Xray core
-sudo gamaj-node update         # update the node (latest, --dev, or --version)
+sudo gamaj-node update         # update the node (latest or --version)
 sudo gamaj-node edit           # edit the environment file
 sudo gamaj-node uninstall      # remove the node
 ```

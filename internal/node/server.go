@@ -71,8 +71,8 @@ const sessionTTL = 30 * time.Minute
 
 var xrayVersionPattern = regexp.MustCompile(`^v\d+\.\d+\.\d+(?:[-+._A-Za-z0-9]*)?$`)
 
-// Release and dev tag shapes live in versionparse so the node, the panel and
-// the shell installers always accept the same tags.
+// Release tag shapes live in versionparse so the node, the panel and the shell
+// installers always accept the same tags.
 var releaseVersionPattern = versionparse.ReleasePattern
 var allowedGeoFiles = map[string]struct{}{"geoip.dat": {}, "geosite.dat": {}}
 var xrayCoreDownloadBaseURLs = []string{"https://github.com/XTLS/Xray-core/releases/download"}
@@ -104,8 +104,8 @@ func New(settings appconfig.Settings) (*Server, error) {
 		operations:   newOperationDeduper(filepath.Join(settings.GamajDataDir, "operation-receipts.json")),
 		sessions:     make(map[string]time.Time),
 	}
-	server.external = newExternalProxyManager(settings.GamajDataDir, server.updateChannel)
-	server.extraVPN = newExtraVPNManager(settings.GamajDataDir, server.updateChannel)
+	server.external = newExternalProxyManager(settings.GamajDataDir)
+	server.extraVPN = newExtraVPNManager(settings.GamajDataDir)
 	// Auxiliary VPN state is authoritative on the master. Never resurrect stale
 	// WireGuard peers from disk while waiting for the first full sync.
 	if err := server.wg.Apply(&wgRuntime{Inbounds: []wgRuntimeInbound{}}); err != nil {
@@ -732,16 +732,6 @@ func (s *Server) nodeVersion() string {
 	return s.settings.NodeVersion
 }
 
-func updateChannelForTag(tag string) string {
-	if strings.HasPrefix(strings.ToLower(strings.TrimSpace(tag)), "dev-") {
-		return "dev"
-	}
-	if strings.TrimSpace(tag) != "" {
-		return "latest"
-	}
-	return "unknown"
-}
-
 func nodeUpdateArgs(channel string, version string) ([]string, error) {
 	args := []string{"update"}
 	normalizedVersion := strings.TrimSpace(version)
@@ -750,12 +740,7 @@ func nodeUpdateArgs(channel string, version string) ([]string, error) {
 		switch normalizedVersion {
 		case "latest":
 			return append(args, "--version", "latest"), nil
-		case "dev":
-			return append(args, "--dev"), nil
 		default:
-			if strings.HasPrefix(strings.ToLower(normalizedVersion), "dev-") {
-				return append(args, "--version", normalizedVersion), nil
-			}
 			if !releaseVersionPattern.MatchString(normalizedVersion) {
 				return nil, errors.New("invalid update version")
 			}
@@ -765,8 +750,6 @@ func nodeUpdateArgs(channel string, version string) ([]string, error) {
 	switch normalizedChannel {
 	case "", "current", "auto":
 		return args, nil
-	case "dev":
-		return append(args, "--dev"), nil
 	case "latest", "stable", "release":
 		return append(args, "--version", "latest"), nil
 	default:

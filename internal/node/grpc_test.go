@@ -296,7 +296,7 @@ func TestGRPCNodeVersionPrefersBinaryMetadata(t *testing.T) {
 	tempDir := t.TempDir()
 	if err := os.WriteFile(
 		filepath.Join(tempDir, ".binary-release.json"),
-		[]byte(`{"install_mode":"binary","tag":"dev-abcdef0","arch":"linux-amd64"}`),
+		[]byte(`{"install_mode":"binary","tag":"v0.2.5","arch":"linux-amd64"}`),
 		0o600,
 	); err != nil {
 		t.Fatalf("failed to write metadata: %v", err)
@@ -318,13 +318,13 @@ func TestGRPCNodeVersionPrefersBinaryMetadata(t *testing.T) {
 	if err != nil {
 		t.Fatalf("hello failed: %v", err)
 	}
-	if hello.GetNodeVersion() != "dev-abcdef0" {
+	if hello.GetNodeVersion() != "v0.2.5" {
 		t.Fatalf("expected metadata node version, got %q", hello.GetNodeVersion())
 	}
-	if hello.GetUpdateChannel() != "dev" {
-		t.Fatalf("expected dev update channel, got %q", hello.GetUpdateChannel())
+	if hello.GetUpdateChannel() != "latest" {
+		t.Fatalf("expected latest update channel, got %q", hello.GetUpdateChannel())
 	}
-	if hello.GetRuntime().GetNodeVersion() != "dev-abcdef0" {
+	if hello.GetRuntime().GetNodeVersion() != "v0.2.5" {
 		t.Fatalf("expected runtime metadata node version, got %q", hello.GetRuntime().GetNodeVersion())
 	}
 }

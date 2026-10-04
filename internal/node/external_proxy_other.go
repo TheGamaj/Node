@@ -6,7 +6,7 @@ import "errors"
 
 type externalProxyManager struct{}
 
-func newExternalProxyManager(string, func() string) *externalProxyManager {
+func newExternalProxyManager(string) *externalProxyManager {
 	return &externalProxyManager{}
 }
 

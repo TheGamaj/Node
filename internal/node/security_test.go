@@ -49,7 +49,7 @@ func TestInstallZipToRejectsZipSlip(t *testing.T) {
 	}
 }
 
-func TestNodeUpdateArgsSupportsReleaseAndDevChannels(t *testing.T) {
+func TestNodeUpdateArgsSupportsReleaseChannels(t *testing.T) {
 	tests := []struct {
 		name    string
 		channel string
@@ -58,10 +58,9 @@ func TestNodeUpdateArgsSupportsReleaseAndDevChannels(t *testing.T) {
 	}{
 		{name: "current", want: []string{"update"}},
 		{name: "latest channel", channel: "latest", want: []string{"update", "--version", "latest"}},
-		{name: "dev channel", channel: "dev", want: []string{"update", "--dev"}},
+		{name: "stable channel", channel: "stable", want: []string{"update", "--version", "latest"}},
 		{name: "specific version", version: "v1.2.3", want: []string{"update", "--version", "v1.2.3"}},
 		{name: "latest version", version: "latest", want: []string{"update", "--version", "latest"}},
-		{name: "dev version tag", version: "dev-abcdef0", want: []string{"update", "--version", "dev-abcdef0"}},
 	}
 
 	for _, tt := range tests {
@@ -85,6 +84,12 @@ func TestNodeUpdateArgsSupportsReleaseAndDevChannels(t *testing.T) {
 func TestNodeUpdateArgsRejectsInvalidChannel(t *testing.T) {
 	if _, err := nodeUpdateArgs("nightly; rm -rf /", ""); err == nil {
 		t.Fatal("expected invalid channel to be rejected")
+	}
+	if _, err := nodeUpdateArgs("dev", ""); err == nil {
+		t.Fatal("expected dev channel to be rejected")
+	}
+	if _, err := nodeUpdateArgs("", "dev-abcdef0"); err == nil {
+		t.Fatal("expected dev version tag to be rejected")
 	}
 }
 

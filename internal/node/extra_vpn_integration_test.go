@@ -27,7 +27,7 @@ func TestExtraVPNLive(t *testing.T) {
 	if dataDir == "" {
 		dataDir = t.TempDir()
 	}
-	vpn := newExtraVPNManager(dataDir, func() string { return "dev" })
+	vpn := newExtraVPNManager(dataDir)
 	ssh := newSSHProxyManager(dataDir)
 	if err := ssh.Apply(&runtimeConfig); err != nil {
 		t.Fatal(err)

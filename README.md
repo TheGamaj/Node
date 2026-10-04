@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./assets/brand/gamaj-node-logo.svg" alt="Gamaj Node" width="104" height="104">
+</p>
+
 <h1>GAMAJ</h1>
 
 ### Node
@@ -32,10 +36,10 @@ Install with a custom node name (a second node on the same host):
 curl -fsSL https://raw.githubusercontent.com/TheGamaj/Node/Asli/scripts/gamaj/gamaj-node.sh | sudo bash -s -- install --name gamaj-node2
 ```
 
-Install the dev channel:
+Install a pinned release:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/TheGamaj/Node/Asli/scripts/gamaj/gamaj-node.sh | sudo bash -s -- install --dev
+curl -fsSL https://raw.githubusercontent.com/TheGamaj/Node/Asli/scripts/gamaj/gamaj-node.sh | sudo bash -s -- install --version is.0.0.1
 ```
 
 Install only the `gamaj-node` command script:

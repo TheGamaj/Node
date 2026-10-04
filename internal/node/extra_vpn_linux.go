@@ -70,10 +70,6 @@ func filterExtraVPNInbounds(inbounds []extraRuntimeInbound, protocol string) []e
 func (m *extraVPNManager) assetName(name string) (string, string) {
 	asset := "gamaj-" + name + "-linux-" + runtime.GOARCH
 	base := "https://github.com/TheGamaj/Node/releases/latest/download/"
-	if m.updateChannel != nil && m.updateChannel() == "dev" {
-		asset = "gamaj-" + name + "-dev-linux-" + runtime.GOARCH
-		base = "https://github.com/TheGamaj/Node/releases/download/dev-binaries/"
-	}
 	return base, asset
 }
 

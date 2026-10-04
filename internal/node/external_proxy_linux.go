@@ -32,11 +32,10 @@ type externalProxyManager struct {
 	mtProcesses   map[string]*exec.Cmd
 	webInstalling bool
 	runtime       *extraRuntime
-	updateChannel func() string
 }
 
-func newExternalProxyManager(dataDir string, updateChannel func() string) *externalProxyManager {
-	return &externalProxyManager{dir: filepath.Join(dataDir, "external-proxies"), mtProcesses: map[string]*exec.Cmd{}, updateChannel: updateChannel}
+func newExternalProxyManager(dataDir string) *externalProxyManager {
+	return &externalProxyManager{dir: filepath.Join(dataDir, "external-proxies"), mtProcesses: map[string]*exec.Cmd{}}
 }
 
 func (m *externalProxyManager) Apply(runtimeConfig *extraRuntime) error {
@@ -165,10 +164,6 @@ func (m *externalProxyManager) ensureTelemtLocked() (string, error) {
 	}
 	asset := "gamaj-telemt-linux-" + runtime.GOARCH
 	base := "https://github.com/TheGamaj/Node/releases/latest/download/"
-	if m.updateChannel != nil && m.updateChannel() == "dev" {
-		asset = "gamaj-telemt-dev-linux-" + runtime.GOARCH
-		base = "https://github.com/TheGamaj/Node/releases/download/dev-binaries/"
-	}
 	body, err := download(base+asset, 10*time.Minute)
 	if err != nil {
 		return "", fmt.Errorf("download patched telemt: %w", err)

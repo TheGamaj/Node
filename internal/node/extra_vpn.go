@@ -11,7 +11,6 @@ import (
 
 type extraVPNManager struct {
 	baseDir       string
-	updateChannel func() string
 	mu            sync.Mutex
 	runtime       *extraRuntime
 	sstpProcesses map[string]managedProcess
@@ -23,10 +22,9 @@ type managedProcess struct {
 	pid int
 }
 
-func newExtraVPNManager(dataDir string, updateChannel func() string) *extraVPNManager {
+func newExtraVPNManager(dataDir string) *extraVPNManager {
 	return &extraVPNManager{
 		baseDir:       filepath.Join(dataDir, "extra-vpn"),
-		updateChannel: updateChannel,
 		sstpProcesses: map[string]managedProcess{},
 		awgProcesses:  map[string]managedProcess{},
 		greLearner:    newGRELearner(),
