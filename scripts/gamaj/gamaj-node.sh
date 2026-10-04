@@ -992,9 +992,11 @@ install_latest_xray_for_binary_node() {
 
     if [ -z "$xray_installer" ]; then
         xray_installer="$APP_DIR/scripts/install_latest_xray.sh"
-        curl -fsSL --retry 3 --retry-delay 2 --retry-all-errors \
-            "$GAMAJ_SCRIPT_BASE_URL/install_latest_xray.sh" -o "$xray_installer" \
-            || die "could not download the Xray core installer from $GAMAJ_SCRIPT_BASE_URL"
+        if ! curl -fsSL --retry 3 --retry-delay 2 --retry-all-errors \
+            "$GAMAJ_SCRIPT_BASE_URL/install_latest_xray.sh" -o "$xray_installer"; then
+            colorized_echo red "Could not download the Xray core installer from $GAMAJ_SCRIPT_BASE_URL" >&2
+            exit 1
+        fi
     fi
 
     sed -i 's/\r$//' "$xray_installer"
