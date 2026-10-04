@@ -7,7 +7,6 @@ on:
       - Asli
     tags:
       - "is.*"
-      - "v*"
   pull_request:
     branches:
       - "**"

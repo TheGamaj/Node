@@ -134,3 +134,21 @@ bash scripts/tests/e2e-node-install.sh   # Install and start the node, then chec
 
 The end-to-end script needs Linux, systemd, root, and Go. On other platforms it
 reports `SKIP` and exits successfully.
+
+## Repository checks
+
+```bash
+bash scripts/ci/workflow-guard.sh   # workflow refs, branch filters, asset names, brand assets
+```
+
+## Brand assets
+
+The icon set in `assets/brand/` is generated from the geometric G mark:
+
+```bash
+node tools/render-brand-assets.mjs assets/brand
+bash scripts/ci/brand-assets-check.sh   # regenerate and diff against brand-assets.sha256
+```
+
+`brand-assets-check.sh` fails if the committed rasters differ from a fresh
+render, and it also runs inside the `workflow-guard` CI job.
