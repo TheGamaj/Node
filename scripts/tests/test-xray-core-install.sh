@@ -51,7 +51,11 @@ cleanup() {
 trap cleanup EXIT
 
 step "loading the node installer"
-export E2E_SOURCED=1
+# Same prelude the end-to-end test uses: naming the app lets the sourced script
+# take its first branch instead of reading an unset COMMAND under `set -u`.
+export GAMAJ_NODE_APP_NAME="gamaj-xray-check"
+export GAMAJ_NODE_SOURCE_ONLY=1
+E2E_SOURCED=1
 # shellcheck disable=SC1091
 source "$repo_root/scripts/gamaj/gamaj-node.sh"
 ok "node installer loaded"
