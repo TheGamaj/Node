@@ -148,7 +148,7 @@ GAMAJ_SCRIPT_BASE_URL="${GAMAJ_SCRIPT_BASE_URL:-https://raw.githubusercontent.co
 GAMAJ_NODE_RELEASE_REPO="${GAMAJ_NODE_RELEASE_REPO:-TheGamaj/Node}"
 GAMAJ_NODE_BINARY_WORKFLOW_NAME="${GAMAJ_NODE_BINARY_WORKFLOW_NAME:-binary-build}"
 GAMAJ_NODE_BINARY_ARTIFACT_PREFIX="${GAMAJ_NODE_BINARY_ARTIFACT_PREFIX:-gamaj-node-binaries}"
-GAMAJ_XRAY_CORE_VERSION_DEFAULT="${GAMAJ_XRAY_CORE_VERSION_DEFAULT:-v26.5.9}"
+GAMAJ_XRAY_CORE_VERSION_DEFAULT="${GAMAJ_XRAY_CORE_VERSION_DEFAULT:-v26.7.11}"
 
 # Default node channel values
 BRANCH="Asli"
@@ -628,7 +628,7 @@ select_xray_core_version() {
     colorized_echo cyan "Select Xray-core version:"
     colorized_echo yellow "  1) Default ($GAMAJ_XRAY_CORE_VERSION_DEFAULT)"
     colorized_echo yellow "  2) Latest Xray release"
-    colorized_echo yellow "  3) Enter a version manually (for example, v26.5.9)"
+    colorized_echo yellow "  3) Enter a version manually (for example, v26.7.11)"
     local choice custom_version
     while true; do
         read -r -p "Xray version [1]: " choice
